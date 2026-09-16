@@ -13,8 +13,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, 'data')
 FIELDS_FILE = os.path.join(DATA_DIR, 'fields.geojson')
 
-# OpenWeatherMap API Key
+# OpenWeatherMap API Key - checks environment variables and Streamlit secrets
 API_KEY = os.environ.get('OPENWEATHER_API_KEY')
+if not API_KEY:
+    try:
+        import streamlit as st
+        API_KEY = st.secrets.get("OPENWEATHER_API_KEY")
+    except Exception:
+        API_KEY = None
 
 def get_synthesized_forecast(field_id="field_1"):
     """Generates realistic field-specific synthesized 7-day forecast with micro-climate variation."""

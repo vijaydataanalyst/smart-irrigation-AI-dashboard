@@ -587,17 +587,25 @@ def execute_pipeline():
     py_exec = sys.executable
     steps = ["fetch_forecast.py", "run_pipeline.py", "plot_demo.py", "zip_artifacts.py"]
     results = []
+    env = os.environ.copy()
+    try:
+        if "OPENWEATHER_API_KEY" in st.secrets:
+            env["OPENWEATHER_API_KEY"] = st.secrets["OPENWEATHER_API_KEY"]
+    except Exception:
+        pass
     for step in steps:
         result = subprocess.run(
             [py_exec, os.path.join(BASE_DIR, "scripts", step)],
             capture_output=True,
             text=True,
             check=False,
+            env=env,
         )
         results.append({"step": step, "returncode": result.returncode, "output": result.stdout + result.stderr})
         if result.returncode != 0:
             break
     return results
+
 
 
 @st.cache_data(show_spinner=False, ttl=86400)
