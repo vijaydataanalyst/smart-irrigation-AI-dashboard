@@ -7,6 +7,7 @@ import subprocess
 import sys
 import requests
 import folium
+import streamlit.components.v1 as components
 from streamlit_folium import st_folium
 
 # Import agronomic catalog
@@ -85,6 +86,10 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, 'data')
 RESULTS_DIR = os.path.join(BASE_DIR, 'results')
 FIELDS_FILE = os.path.join(DATA_DIR, 'fields.geojson')
+GLOBE_COMPONENT = components.declare_component(
+    "smart_irrigation_globe",
+    path=os.path.join(BASE_DIR, "globe_component", "dist"),
+)
 
 # App Header
 st.markdown("""
@@ -222,7 +227,23 @@ pending_location_name = st.session_state.get("pending_location_name")
 map_center = pending_coords or coords
 
 st.subheader("📍 Choose field location")
-st.caption("Click the map to move the selected field. The pipeline will use the new coordinates after you apply changes.")
+st.caption("Orbit the Earth and click a location to set the field coordinates. The existing field map remains below for marker-based selection.")
+globe_value = GLOBE_COMPONENT(
+    latitude=float(map_center[1]),
+    longitude=float(map_center[0]),
+    key="threejs_location_globe",
+    default=None,
+)
+if isinstance(globe_value, dict) and "latitude" in globe_value and "longitude" in globe_value:
+    globe_coords = [float(globe_value["longitude"]), float(globe_value["latitude"])]
+    globe_signature = [round(globe_coords[0], 5), round(globe_coords[1], 5)]
+    if globe_signature != st.session_state.get("last_globe_signature"):
+        st.session_state["pending_coords"] = globe_coords
+        st.session_state["pending_location_name"] = reverse_geocode(globe_coords[1], globe_coords[0])
+        st.session_state["last_globe_signature"] = globe_signature
+        st.rerun()
+
+st.markdown("**Marker map fallback**", help="Use this map if you prefer selecting a configured field marker.")
 field_map = folium.Map(location=[map_center[1], map_center[0]], zoom_start=5, control_scale=True)
 field_marker_coordinates = {}
 for field_id, feature in fields_dict.items():

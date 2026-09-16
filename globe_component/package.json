@@ -1,0 +1,16 @@
+{
+  "name": "smart-irrigation-globe",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "dependencies": {
+    "streamlit-component-lib": "^2.0.0",
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "vite": "^6.0.5"
+  }
+}
