@@ -65,6 +65,9 @@ st.markdown("""
         box-shadow: 0 8px 20px rgba(37, 72, 48, .06);
     }
     [data-testid="stAppViewContainer"], [data-testid="stHeader"] { background: #050807; }
+    [data-testid="stSidebar"], [data-testid="stSidebarContent"] { background: #0b120f !important; }
+    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"], [data-testid="stSidebar"] label { color: #d5e6d2 !important; }
+    [data-testid="stSidebar"] [data-baseweb="input"] input { color: #eff9eb !important; }
     [data-testid="stMarkdownContainer"], .stCaption, label { color: #d5e6d2 !important; }
     [data-testid="stMetricLabel"] { color: #9eb6a4 !important; }
     [data-testid="stMetricValue"] { color: var(--green); font-family: 'DM Mono', monospace; }
@@ -73,6 +76,8 @@ st.markdown("""
     [data-testid="stDataFrame"] { border: 1px solid #294535; border-radius: 14px; overflow: hidden; }
     [data-testid="stExpander"] { background: #0d1712; border: 1px solid #294535; border-radius: 14px; }
     .stButton > button { border-radius: 999px; font-weight: 750; color: #071009; background: var(--green); border: 0; transition: transform .2s ease, box-shadow .2s ease; }
+    [data-testid="stSidebar"] .stButton > button { background: #172820 !important; color: #a6f28f !important; border: 1px solid #3c664b !important; }
+    [data-testid="stSidebar"] .stButton > button:hover { background: #223c2c !important; }
     .stButton > button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(16, 32, 24, .15); }
     .status-strip {
         border: 1px solid #294535;
@@ -331,7 +336,7 @@ with delete_col:
     st.markdown('<div class="action-label">Field actions</div>', unsafe_allow_html=True)
     delete_field = st.button(
         "🗑️ Delete selected field",
-        type="secondary",
+        type="primary",
         disabled=is_new_field,
         use_container_width=True,
         help="Delete the selected configured field. At least one field must remain.",
