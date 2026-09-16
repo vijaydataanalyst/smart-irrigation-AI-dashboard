@@ -54,6 +54,18 @@ When no key is configured, the app uses the built-in synthetic fallback and labe
 streamlit run app.py
 ```
 
+The location workspace includes an immersive Three.js Earth selector. To rebuild the component after editing its frontend source:
+
+```powershell
+cd globe_component
+npm install
+npm run build
+cd ..
+streamlit run app.py
+```
+
+Drag the globe to orbit it and click the Earth to send latitude/longitude back to Streamlit. The existing Folium field-marker map remains available below it as a fallback.
+
 Select a field, edit `Kc`, soil type, `FC`, `WP`, or initial moisture, then click **Apply Parameters, Fetch Weather & Plot**. The forecast, graph, recommendations, metrics, risks, and selected-field schedule refresh together.
 
 ## Run the Pipeline Manually
