@@ -12,6 +12,7 @@ root.innerHTML = `
       <p>Drag to orbit. Click the Earth to set a precise forecast location.</p>
     </div>
     <div class="globe-readout" id="readout">READY / AWAITING LOCATION</div>
+    <div class="place-rail" id="place-rail"></div>
     <div class="globe-hint">DRAG TO ROTATE &nbsp; · &nbsp; SCROLL TO ZOOM &nbsp; · &nbsp; CLICK TO PIN</div>
   </section>
 `;
@@ -94,6 +95,7 @@ function coordinatesToVector(latitude, longitude, radius = 1.33) {
 
 function renderFieldPins(points = []) {
   fieldPins.clear();
+  document.querySelector("#place-rail").innerHTML = points.slice(0, 12).map((point) => `<span>${point.name}</span>`).join("");
   points.forEach((point) => {
     const pin = new THREE.Mesh(
       new THREE.SphereGeometry(0.025, 12, 12),
@@ -139,6 +141,8 @@ canvas.addEventListener("pointerup", (event) => {
 canvas.addEventListener("wheel", (event) => {
   event.preventDefault();
   camera.position.z = Math.max(2.8, Math.min(6.2, camera.position.z + event.deltaY * 0.0025));
+  const zoom = Math.round((6.2 / camera.position.z) * 10) / 10;
+  readout.textContent = `LOCAL DETAIL ${zoom.toFixed(1)}× / SCROLL TO EXPLORE`;
 }, { passive: false });
 
 function animate() {

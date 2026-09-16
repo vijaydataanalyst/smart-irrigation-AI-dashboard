@@ -83,6 +83,12 @@ st.markdown("""
         color: #e8f4e5;
         box-shadow: 0 10px 24px rgba(36, 75, 46, .05);
     }
+    .dark-data-table { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; border: 1px solid #294535; border-radius: 14px; background: #0d1712; color: #d9ebd7; font-size: .82rem; }
+    .dark-data-table th { padding: .7rem .8rem; text-align: left; color: #a6f28f; background: #16261e; border-bottom: 1px solid #294535; font-family: 'DM Mono', monospace; font-size: .72rem; letter-spacing: .04em; }
+    .dark-data-table td { padding: .62rem .8rem; border-bottom: 1px solid #1e3327; }
+    .dark-data-table tr:last-child td { border-bottom: 0; }
+    .dark-data-table tr:hover td { background: #14251b; }
+    .action-label { color: #a6f28f; font: 700 .72rem 'DM Mono', monospace; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .3rem; }
     @keyframes rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 """, unsafe_allow_html=True)
@@ -322,9 +328,12 @@ st.caption(f"Active coordinates: longitude {active_coords[0]:.4f}, latitude {act
 
 delete_col, delete_info_col = st.columns([1, 3])
 with delete_col:
+    st.markdown('<div class="action-label">Field actions</div>', unsafe_allow_html=True)
     delete_field = st.button(
         "🗑️ Delete selected field",
-        disabled=is_new_field or len(fields_dict) <= 1,
+        type="secondary",
+        disabled=is_new_field,
+        use_container_width=True,
         help="Delete the selected configured field. At least one field must remain.",
     )
 with delete_info_col:
@@ -332,6 +341,9 @@ with delete_info_col:
         st.caption(f"Selected field coordinates: {coords[1]:.5f}, {coords[0]:.5f}")
 
 if delete_field and not is_new_field:
+    if len(fields_dict) <= 1:
+        st.error("At least one field must remain.")
+        st.stop()
     fields_data["features"] = [
         feature for feature in fields_data["features"]
         if feature["properties"].get("id") != selected_field_id
@@ -640,12 +652,15 @@ with tab1:
 
         with col2:
             st.subheader("📋 7-Day Atmospheric & Soil Data")
-            st.dataframe(df.style.format({
-                "precip_mm": "{:.2f}",
-                "temp_C": "{:.1f}",
-                "pet_mm": "{:.2f}",
-                "soil_mm": "{:.2f}"
-            }), use_container_width=True)
+            dark_table = df.copy()
+            dark_table["date"] = dark_table["date"].dt.strftime("%d %b")
+            for column in ["precip_mm", "pet_mm", "soil_mm"]:
+                dark_table[column] = dark_table[column].map(lambda value: f"{value:.2f}")
+            dark_table["temp_C"] = dark_table["temp_C"].map(lambda value: f"{value:.1f}")
+            st.markdown(
+                dark_table.to_html(index=False, classes="dark-data-table", border=0),
+                unsafe_allow_html=True,
+            )
 
             st.subheader("💧 Actionable Recommendations")
             if recs:

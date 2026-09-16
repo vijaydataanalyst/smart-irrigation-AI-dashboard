@@ -9,5 +9,7 @@ html, body, #root { margin: 0; width: 100%; min-height: 100%; overflow: hidden; 
 .globe-copy h2 em { color: #f5bb63; font-style: normal; }
 .globe-copy p { max-width: 260px; margin: 0; color: #b9d4be; font-size: 13px; line-height: 1.45; }
 .globe-readout { position: absolute; right: 28px; top: 30px; z-index: 2; padding: 10px 13px; border: 1px solid rgba(142,227,140,.35); border-radius: 999px; color: #baf1b6; background: rgba(8,22,17,.64); font: 700 11px/1.2 ui-monospace, monospace; letter-spacing: .07em; }
+.place-rail { position: absolute; right: 28px; bottom: 42px; z-index: 2; display: flex; flex-direction: column; gap: 6px; max-width: 190px; max-height: 170px; overflow: hidden; text-align: right; }
+.place-rail span { color: rgba(239,249,235,.66); font: 500 10px/1.2 ui-monospace, monospace; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 .globe-hint { position: absolute; bottom: 22px; left: 36px; color: rgba(239,249,235,.56); font: 700 10px/1 ui-monospace, monospace; letter-spacing: .12em; }
 @media (max-width: 700px) { .globe-shell { height: 560px; border-radius: 18px; } .globe-copy { left: 22px; top: 24px; } .globe-copy h2 { font-size: 36px; } .globe-readout { right: 16px; top: 18px; font-size: 9px; } }
