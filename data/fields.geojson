@@ -29,8 +29,8 @@
         "crop_type": "Maize",
         "soil_type": "Sandy Loam",
         "field_capacity_mm": 120.0,
-        "wilting_point_mm": 40.0,
-        "initial_moisture_mm": 58.0,
+        "wilting_point_mm": 60.0,
+        "initial_moisture_mm": 120.0,
         "kc": 1.0
       },
       "geometry": {
@@ -85,8 +85,8 @@
       "type": "Feature",
       "properties": {
         "id": "field_5",
-        "name": "Field 5",
-        "crop_type": "Cotton",
+        "name": "Field 5 (North Zone - Sugarcane)",
+        "crop_type": "Sugarcane",
         "soil_type": "Loam (Standard Agricultural Soil)",
         "field_capacity_mm": 150.0,
         "wilting_point_mm": 50.0,
@@ -96,8 +96,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          73.87207031250001,
-          29.573457073017593
+          75.8573,
+          30.901
         ]
       }
     },
@@ -105,39 +105,19 @@
       "type": "Feature",
       "properties": {
         "id": "field_6",
-        "name": "Field 6",
-        "crop_type": "Cotton",
+        "name": "Field 6 (East Zone - Maize)",
+        "crop_type": "Maize",
         "soil_type": "Loam (Standard Agricultural Soil)",
         "field_capacity_mm": 150.0,
         "wilting_point_mm": 50.0,
         "initial_moisture_mm": 75.0,
-        "kc": 1.1
+        "kc": 1.25
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          73.91601562500001,
-          30.183121842195515
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "field_7",
-        "name": "Field 7",
-        "crop_type": "Cotton",
-        "soil_type": "Loam (Standard Agricultural Soil)",
-        "field_capacity_mm": 150.0,
-        "wilting_point_mm": 50.0,
-        "initial_moisture_mm": 75.0,
-        "kc": 1.1
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          85.42968750000001,
-          27.52775820686191
+          85.1376,
+          25.5941
         ]
       }
     }
