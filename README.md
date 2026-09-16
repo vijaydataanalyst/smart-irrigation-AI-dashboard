@@ -64,7 +64,7 @@ cd ..
 streamlit run app.py
 ```
 
-Drag the globe to orbit it and click the Earth to send latitude/longitude back to Streamlit. The existing Folium field-marker map remains available below it as a fallback.
+Drag the globe to orbit it, scroll to zoom, and click the Earth to send latitude/longitude back to Streamlit. The globe is the primary location surface for the dashboard.
 
 Select a field, edit `Kc`, soil type, `FC`, `WP`, or initial moisture, then click **Apply Parameters, Fetch Weather & Plot**. The forecast, graph, recommendations, metrics, risks, and selected-field schedule refresh together.
 

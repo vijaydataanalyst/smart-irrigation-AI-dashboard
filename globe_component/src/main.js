@@ -12,7 +12,7 @@ root.innerHTML = `
       <p>Drag to orbit. Click the Earth to set a precise forecast location.</p>
     </div>
     <div class="globe-readout" id="readout">READY / AWAITING LOCATION</div>
-    <div class="globe-hint">DRAG TO ROTATE &nbsp; · &nbsp; CLICK TO PIN</div>
+    <div class="globe-hint">DRAG TO ROTATE &nbsp; · &nbsp; SCROLL TO ZOOM &nbsp; · &nbsp; CLICK TO PIN</div>
   </section>
 `;
 
@@ -70,17 +70,21 @@ function resize() {
   Streamlit.setFrameHeight(Math.max(420, rect.height));
 }
 
-function emitLocation(latitude, longitude) {
-  const lat = Number(latitude.toFixed(5));
-  const lon = Number(longitude.toFixed(5));
-  readout.textContent = `PINNED / ${lat.toFixed(5)}° LAT  ${lon.toFixed(5)}° LON`;
+function placePin(latitude, longitude) {
   if (selectedPin) globe.remove(selectedPin);
-  const phi = (90 - lat) * Math.PI / 180;
-  const theta = (lon + 180) * Math.PI / 180;
+  const phi = (90 - latitude) * Math.PI / 180;
+  const theta = (longitude + 180) * Math.PI / 180;
   const pinPosition = new THREE.Vector3(-1.31 * Math.sin(phi) * Math.cos(theta), 1.31 * Math.cos(phi), 1.31 * Math.sin(phi) * Math.sin(theta));
   selectedPin = new THREE.Mesh(new THREE.SphereGeometry(0.045, 16, 16), new THREE.MeshBasicMaterial({ color: 0xffc45c }));
   selectedPin.position.copy(pinPosition);
   globe.add(selectedPin);
+}
+
+function emitLocation(latitude, longitude) {
+  const lat = Number(latitude.toFixed(5));
+  const lon = Number(longitude.toFixed(5));
+  readout.textContent = `PINNED / ${lat.toFixed(5)}° LAT  ${lon.toFixed(5)}° LON`;
+  placePin(lat, lon);
   Streamlit.setComponentValue({ latitude: lat, longitude: lon, source: "threejs-globe" });
 }
 
@@ -108,6 +112,10 @@ canvas.addEventListener("pointerup", (event) => {
   const longitude = Math.atan2(local.z, -local.x) * 180 / Math.PI - 180;
   emitLocation(latitude, ((longitude + 540) % 360) - 180);
 });
+canvas.addEventListener("wheel", (event) => {
+  event.preventDefault();
+  camera.position.z = Math.max(2.8, Math.min(6.2, camera.position.z + event.deltaY * 0.0025));
+}, { passive: false });
 
 function animate() {
   requestAnimationFrame(animate);
@@ -118,11 +126,13 @@ window.addEventListener("resize", resize);
 resize();
 animate();
 Streamlit.setComponentReady();
-Streamlit.setFrameHeight(520);
+Streamlit.setFrameHeight(640);
 Streamlit.events.addEventListener(Streamlit.RENDER_EVENT, (event) => {
   const args = event.detail.args || {};
   if (typeof args.latitude === "number" && typeof args.longitude === "number") {
-    readout.textContent = `READY / ${args.latitude.toFixed(5)}° LAT  ${args.longitude.toFixed(5)}° LON`;
+    placePin(args.latitude, args.longitude);
+    const label = args.location_name ? `${args.location_name} / ` : "";
+    readout.textContent = `${label}${args.latitude.toFixed(5)}° LAT  ${args.longitude.toFixed(5)}° LON`;
   }
 });
 withStreamlitConnection(() => {});

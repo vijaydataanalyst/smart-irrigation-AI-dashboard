@@ -6,9 +6,7 @@ import matplotlib.pyplot as plt
 import subprocess
 import sys
 import requests
-import folium
 import streamlit.components.v1 as components
-from streamlit_folium import st_folium
 
 # Import agronomic catalog
 sys.path.append(os.path.join(os.path.dirname(__file__), 'scripts'))
@@ -227,10 +225,12 @@ pending_location_name = st.session_state.get("pending_location_name")
 map_center = pending_coords or coords
 
 st.subheader("📍 Choose field location")
-st.caption("Orbit the Earth and click a location to set the field coordinates. The existing field map remains below for marker-based selection.")
+st.caption("Orbit and zoom the Earth. Click any point on the globe to set the field coordinates.")
+location_name = st.session_state.get("pending_location_name", field_labels.get(map_field_id, "Selected map location"))
 globe_value = GLOBE_COMPONENT(
     latitude=float(map_center[1]),
     longitude=float(map_center[0]),
+    location_name=location_name,
     key="threejs_location_globe",
     default=None,
 )
@@ -242,61 +242,6 @@ if isinstance(globe_value, dict) and "latitude" in globe_value and "longitude" i
         st.session_state["pending_location_name"] = reverse_geocode(globe_coords[1], globe_coords[0])
         st.session_state["last_globe_signature"] = globe_signature
         st.rerun()
-
-st.markdown("**Marker map fallback**", help="Use this map if you prefer selecting a configured field marker.")
-field_map = folium.Map(location=[map_center[1], map_center[0]], zoom_start=5, control_scale=True)
-field_marker_coordinates = {}
-for field_id, feature in fields_dict.items():
-    marker_coords = feature['geometry']['coordinates']
-    field_marker_coordinates[field_id] = [float(marker_coords[0]), float(marker_coords[1])]
-    folium.Marker(
-        [marker_coords[1], marker_coords[0]],
-        tooltip=feature['properties'].get('name', field_id),
-        popup=field_id,
-        icon=folium.Icon(color='green' if field_id == map_field_id else 'blue', icon='tint', prefix='fa'),
-    ).add_to(field_map)
-if pending_coords:
-    folium.Marker(
-        [pending_coords[1], pending_coords[0]],
-        tooltip=pending_location_name or "Selected location",
-        popup=pending_location_name or "Selected location",
-        icon=folium.Icon(color="red", icon="map-marker", prefix="fa"),
-    ).add_to(field_map)
-map_result = st_folium(field_map, height=360, use_container_width=True, key='field_location_map')
-clicked_location = map_result.get('last_clicked') if map_result else None
-clicked_field_id = map_result.get("last_object_clicked_popup") if map_result else None
-clicked_is_field_marker = False
-if clicked_location and clicked_field_id in field_marker_coordinates:
-    marker_coords = field_marker_coordinates[clicked_field_id]
-    clicked_is_field_marker = (
-        abs(float(clicked_location['lng']) - marker_coords[0]) < 0.0005
-        and abs(float(clicked_location['lat']) - marker_coords[1]) < 0.0005
-    )
-location_name = field_labels.get(map_field_id, "Selected map location")
-if clicked_location and clicked_is_field_marker:
-    # A marker popup contains its field ID. Treat a marker click as selecting
-    # that field so the map, dropdown, and graph always match.
-    if clicked_field_id != map_field_id:
-        st.session_state["queued_active_field_id"] = clicked_field_id
-        st.session_state.pop("pending_coords", None)
-        st.session_state.pop("pending_location_name", None)
-        st.session_state.pop("last_click_signature", None)
-        st.rerun()
-
-if clicked_location and not clicked_is_field_marker:
-    clicked_coords = [clicked_location['lng'], clicked_location['lat']]
-    click_signature = [round(clicked_coords[0], 5), round(clicked_coords[1], 5)]
-    location_name = (
-        map_result.get("last_object_clicked_popup")
-        or map_result.get("last_object_clicked_tooltip")
-        or reverse_geocode(round(clicked_coords[1], 5), round(clicked_coords[0], 5))
-    )
-    if click_signature != st.session_state.get("last_click_signature"):
-        st.session_state["pending_coords"] = clicked_coords
-        st.session_state["pending_location_name"] = location_name
-        st.session_state["last_click_signature"] = click_signature
-        st.rerun()
-    coords = clicked_coords
 location_name = st.session_state.get("pending_location_name", location_name)
 st.success(f"📌 Selected location: **{location_name}**")
 st.caption(f"Active coordinates: longitude {coords[0]:.4f}, latitude {coords[1]:.4f}")
