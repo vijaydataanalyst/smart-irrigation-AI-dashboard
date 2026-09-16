@@ -18,25 +18,27 @@ st.set_page_config(page_title="Smart Irrigation AI Dashboard", layout="wide", pa
 
 st.markdown("""
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
     :root {
-        --green: #8ee38c;
-        --mint: #dff8dd;
-        --ink: #102018;
+        --green: #a6f28f;
+        --mint: #16261e;
+        --ink: #e8f4e5;
         --amber: #f5bb63;
-        --night: #101b18;
-        --night-soft: #172821;
+        --night: #080d0b;
+        --night-soft: #17241e;
     }
     .stApp {
         background: #050807;
         color: #eff9eb;
+        font-family: 'Space Grotesk', sans-serif;
     }
-    .block-container { padding-top: 2rem; max-width: 1500px; }
+    .block-container { padding: 1.5rem 2rem 4rem; max-width: 1500px; }
     .hero {
         position: relative;
         overflow: hidden;
         padding: 2.25rem 2.2rem 2rem;
         border-radius: 22px;
-        background: linear-gradient(120deg, #102018 0%, #1e4030 58%, #315c45 100%);
+        background: linear-gradient(120deg, #09100c 0%, #12251b 58%, #1d3b2a 100%);
         color: white;
         margin-bottom: .8rem;
         box-shadow: 0 18px 45px rgba(16, 32, 24, .18);
@@ -57,23 +59,28 @@ st.markdown("""
     .command-chip b { color: var(--green); }
     [data-testid="stMetric"] {
         background: var(--mint);
-        border: 1px solid #d2e2d0;
+        border: 1px solid #294535;
         padding: .75rem;
         border-radius: 14px;
         box-shadow: 0 8px 20px rgba(37, 72, 48, .06);
     }
     [data-testid="stAppViewContainer"], [data-testid="stHeader"] { background: #050807; }
     [data-testid="stMarkdownContainer"], .stCaption, label { color: #d5e6d2 !important; }
-    [data-testid="stMetricValue"] { color: var(--ink); }
-    .stButton > button { border-radius: 999px; font-weight: 750; transition: transform .2s ease, box-shadow .2s ease; }
+    [data-testid="stMetricLabel"] { color: #9eb6a4 !important; }
+    [data-testid="stMetricValue"] { color: var(--green); font-family: 'DM Mono', monospace; }
+    input, textarea, [data-baseweb="select"] > div { background: #101b16 !important; color: #e8f4e5 !important; border-color: #2d4a39 !important; }
+    [data-baseweb="select"] svg { fill: #a6f28f !important; }
+    [data-testid="stDataFrame"] { border: 1px solid #294535; border-radius: 14px; overflow: hidden; }
+    [data-testid="stExpander"] { background: #0d1712; border: 1px solid #294535; border-radius: 14px; }
+    .stButton > button { border-radius: 999px; font-weight: 750; color: #071009; background: var(--green); border: 0; transition: transform .2s ease, box-shadow .2s ease; }
     .stButton > button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(16, 32, 24, .15); }
     .status-strip {
-        border: 1px solid #cfe2c9;
-        border-left: 5px solid #4f9b5c;
-        background: rgba(245, 248, 243, .9);
+        border: 1px solid #294535;
+        border-left: 5px solid var(--green);
+        background: #101b16;
         padding: .85rem 1rem;
         border-radius: 12px;
-        color: var(--ink);
+        color: #e8f4e5;
         box-shadow: 0 10px 24px rgba(36, 75, 46, .05);
     }
     @keyframes rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -252,10 +259,6 @@ if isinstance(globe_value, dict) and "latitude" in globe_value and "longitude" i
         st.session_state["pending_location_name"] = reverse_geocode(globe_coords[1], globe_coords[0])
         st.session_state["last_globe_signature"] = globe_signature
         st.rerun()
-location_name = st.session_state.get("pending_location_name", location_name)
-st.success(f"📌 Selected location: **{location_name}**")
-st.caption(f"Active coordinates: longitude {coords[0]:.4f}, latitude {coords[1]:.4f}")
-
 field_options = ["__new_field__"] + field_ids
 selected_field_id = st.selectbox(
     "Select an existing field or create a new field",
@@ -301,9 +304,21 @@ if is_new_field:
 else:
     selected_feature = fields_dict[selected_field_id]
     selected_props = selected_feature['properties']
-coords = st.session_state.get("pending_coords", coords if is_new_field else selected_feature['geometry']['coordinates'])
+    # Existing fields always display and use their saved coordinates. Pending
+    # globe clicks belong to the new-field flow and must not leak into them.
+    st.session_state.pop("pending_coords", None)
+    st.session_state.pop("pending_location_name", None)
+    coords = selected_feature['geometry']['coordinates']
+location_name = (
+    st.session_state.get("pending_location_name", location_name)
+    if is_new_field
+    else field_labels.get(selected_field_id, selected_field_id)
+)
+coords = st.session_state.get("pending_coords", coords if is_new_field else coords)
 active_coords = [float(coords[0]), float(coords[1])]
 coords = active_coords
+st.success(f"📌 Selected location: **{location_name}**")
+st.caption(f"Active coordinates: longitude {active_coords[0]:.4f}, latitude {active_coords[1]:.4f}")
 
 delete_col, delete_info_col = st.columns([1, 3])
 with delete_col:
@@ -577,13 +592,18 @@ with tab1:
             chart_df = df.iloc[:visible_days]
             st.subheader(f"📈 Forecast response: {selected_props.get('name')}")
             fig, ax1 = plt.subplots(figsize=(8.5, 4.8))
+            fig.patch.set_facecolor('#0b120f')
+            ax1.set_facecolor('#0b120f')
+            ax1.tick_params(colors='#cfe7ce')
+            for spine in ax1.spines.values():
+                spine.set_color('#3b5a47')
 
-            ax1.set_xlabel('Date')
+            ax1.set_xlabel('Date', color='#cfe7ce')
             if chart_mode == "Temperature + PET":
                 ax1.set_ylabel('Temperature (C)', color='tab:red')
                 ax1.plot(chart_df['date'], chart_df['temp_C'], color='tab:red', marker='o', linewidth=2.5, label='Temperature')
                 ax2 = ax1.twinx()
-                ax2.set_ylabel('PET (mm)', color='tab:orange')
+                ax2.set_ylabel('PET (mm)', color='#f5bb63')
                 ax2.plot(chart_df['date'], chart_df['pet_mm'], color='tab:orange', marker='s', label='PET')
             else:
                 ax1.set_ylabel('Soil Moisture (mm)', color='tab:blue')
@@ -609,6 +629,12 @@ with tab1:
                 handles.extend(extra_handles)
                 labels.extend(extra_labels)
             ax1.legend(handles, labels, loc='upper left', fontsize=8.5)
+            legend = ax1.get_legend()
+            if legend:
+                legend.get_frame().set_facecolor('#122018')
+                legend.get_frame().set_edgecolor('#3b5a47')
+                for text in legend.get_texts():
+                    text.set_color('#d8ebd7')
             fig.tight_layout()
             st.pyplot(fig)
 
