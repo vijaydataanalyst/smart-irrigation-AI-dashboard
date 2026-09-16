@@ -1,0 +1,20 @@
+[
+  {
+    "field_id": "field_10",
+    "field_name": "Field 10",
+    "crop": "Tomato",
+    "date": "2026-09-16",
+    "depth_mm": 30.0,
+    "soil_moisture_mm": 56.3,
+    "reason": "AWF (0.38) < 0.5 and rain in 48h (4.6mm) < 5.0mm; planned irrigation credit 0.0mm"
+  },
+  {
+    "field_id": "field_10",
+    "field_name": "Field 10",
+    "crop": "Tomato",
+    "date": "2026-09-17",
+    "depth_mm": 30.0,
+    "soil_moisture_mm": 69.2,
+    "reason": "AWF (0.46) < 0.5 and rain in 48h (4.9mm) < 5.0mm; planned irrigation credit 19.2mm"
+  }
+]

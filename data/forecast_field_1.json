@@ -1,0 +1,44 @@
+[
+  {
+    "date": "2026-09-16",
+    "precip_mm": 0.0,
+    "temp_C": 29.5,
+    "synthesized": true
+  },
+  {
+    "date": "2026-09-17",
+    "precip_mm": 0.0,
+    "temp_C": 30.2,
+    "synthesized": true
+  },
+  {
+    "date": "2026-09-18",
+    "precip_mm": 2.5,
+    "temp_C": 28.0,
+    "synthesized": true
+  },
+  {
+    "date": "2026-09-19",
+    "precip_mm": 0.0,
+    "temp_C": 27.5,
+    "synthesized": true
+  },
+  {
+    "date": "2026-09-20",
+    "precip_mm": 0.0,
+    "temp_C": 31.0,
+    "synthesized": true
+  },
+  {
+    "date": "2026-09-21",
+    "precip_mm": 0.0,
+    "temp_C": 30.5,
+    "synthesized": true
+  },
+  {
+    "date": "2026-09-22",
+    "precip_mm": 0.0,
+    "temp_C": 29.0,
+    "synthesized": true
+  }
+]

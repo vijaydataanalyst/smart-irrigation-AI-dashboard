@@ -1,0 +1,15 @@
+field_id,field_name,crop,date,depth_mm,soil_moisture_mm,reason
+field_2,Field 2 (South Block - Maize),Maize,2026-09-16,30.0,40.0,AWF (0.33) < 0.5 and rain in 48h (0.0mm) < 5.0mm; planned irrigation credit 0.0mm
+field_2,Field 2 (South Block - Maize),Maize,2026-09-19,30.0,58.4,AWF (0.49) < 0.5 and rain in 48h (0.0mm) < 5.0mm; planned irrigation credit 18.4mm
+field_3,Field 3 (East Block - Wheat),Wheat,2026-09-19,30.0,86.6,AWF (0.48) < 0.5 and rain in 48h (0.5mm) < 5.0mm; planned irrigation credit 0.0mm
+field_3,Field 3 (East Block - Wheat),Wheat,2026-09-20,30.0,82.1,AWF (0.46) < 0.5 and rain in 48h (0.0mm) < 5.0mm; planned irrigation credit 10.5mm
+field_3,Field 3 (East Block - Wheat),Wheat,2026-09-22,30.0,88.6,AWF (0.49) < 0.5 and rain in 48h (0.0mm) < 5.0mm; planned irrigation credit 23.6mm
+field_4,Field 4 (New Zone),Maize,2026-09-16,30.0,60.4,AWF (0.40) < 0.5 and rain in 48h (2.9mm) < 5.0mm; planned irrigation credit 0.0mm
+field_4,Field 4 (New Zone),Maize,2026-09-17,30.0,65.1,AWF (0.43) < 0.5 and rain in 48h (2.7mm) < 5.0mm; planned irrigation credit 15.1mm
+field_4,Field 4 (New Zone),Maize,2026-09-21,30.0,73.5,AWF (0.49) < 0.5 and rain in 48h (2.3mm) < 5.0mm; planned irrigation credit 23.5mm
+field_5,Field 5,Cotton,2026-09-17,30.0,50.0,AWF (0.33) < 0.5 and rain in 48h (4.2mm) < 5.0mm; planned irrigation credit 0.0mm
+field_5,Field 5,Cotton,2026-09-20,30.0,68.4,AWF (0.46) < 0.5 and rain in 48h (3.9mm) < 5.0mm; planned irrigation credit 18.4mm
+field_6,Field 6,Cotton,2026-09-16,30.0,58.7,AWF (0.39) < 0.5 and rain in 48h (3.3mm) < 5.0mm; planned irrigation credit 0.0mm
+field_6,Field 6,Cotton,2026-09-17,30.0,66.8,AWF (0.45) < 0.5 and rain in 48h (2.5mm) < 5.0mm; planned irrigation credit 16.8mm
+field_7,Field 7,Cotton,2026-09-16,30.0,57.0,AWF (0.38) < 0.5 and rain in 48h (3.9mm) < 5.0mm; planned irrigation credit 0.0mm
+field_7,Field 7,Cotton,2026-09-17,30.0,68.5,AWF (0.46) < 0.5 and rain in 48h (2.5mm) < 5.0mm; planned irrigation credit 18.5mm

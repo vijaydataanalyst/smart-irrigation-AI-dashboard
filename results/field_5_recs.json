@@ -1,0 +1,20 @@
+[
+  {
+    "field_id": "field_5",
+    "field_name": "Field 5",
+    "crop": "Cotton",
+    "date": "2026-09-17",
+    "depth_mm": 30.0,
+    "soil_moisture_mm": 50.0,
+    "reason": "AWF (0.33) < 0.5 and rain in 48h (4.2mm) < 5.0mm; planned irrigation credit 0.0mm"
+  },
+  {
+    "field_id": "field_5",
+    "field_name": "Field 5",
+    "crop": "Cotton",
+    "date": "2026-09-20",
+    "depth_mm": 30.0,
+    "soil_moisture_mm": 68.4,
+    "reason": "AWF (0.46) < 0.5 and rain in 48h (3.9mm) < 5.0mm; planned irrigation credit 18.4mm"
+  }
+]

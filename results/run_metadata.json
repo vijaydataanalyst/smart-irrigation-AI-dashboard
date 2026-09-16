@@ -1,0 +1,89 @@
+{
+  "run_timestamp_utc": "2026-09-16T09:03:47.143134+00:00",
+  "fields": [
+    {
+      "field_id": "field_1",
+      "field_name": "Field 1 (North Block - Tomato)",
+      "crop": "Tomato",
+      "crop_stage": "Configured",
+      "kc": 1.15,
+      "soil_type": "Loam",
+      "field_capacity_mm": 100.0,
+      "wilting_point_mm": 50.0,
+      "forecast_days": 7,
+      "forecast_source": "synthetic fallback"
+    },
+    {
+      "field_id": "field_2",
+      "field_name": "Field 2 (South Block - Maize)",
+      "crop": "Maize",
+      "crop_stage": "Configured",
+      "kc": 1.0,
+      "soil_type": "Sandy Loam",
+      "field_capacity_mm": 120.0,
+      "wilting_point_mm": 40.0,
+      "forecast_days": 7,
+      "forecast_source": "synthetic fallback"
+    },
+    {
+      "field_id": "field_3",
+      "field_name": "Field 3 (East Block - Wheat)",
+      "crop": "Wheat",
+      "crop_stage": "Configured",
+      "kc": 0.85,
+      "soil_type": "Clay Loam",
+      "field_capacity_mm": 180.0,
+      "wilting_point_mm": 65.0,
+      "forecast_days": 7,
+      "forecast_source": "synthetic fallback"
+    },
+    {
+      "field_id": "field_4",
+      "field_name": "Field 4 (New Zone)",
+      "crop": "Maize",
+      "crop_stage": "Configured",
+      "kc": 1.0,
+      "soil_type": "Loam (Standard Agricultural Soil)",
+      "field_capacity_mm": 150.0,
+      "wilting_point_mm": 50.0,
+      "forecast_days": 7,
+      "forecast_source": "synthetic fallback"
+    },
+    {
+      "field_id": "field_5",
+      "field_name": "Field 5",
+      "crop": "Cotton",
+      "crop_stage": "Configured",
+      "kc": 1.15,
+      "soil_type": "Loam (Standard Agricultural Soil)",
+      "field_capacity_mm": 150.0,
+      "wilting_point_mm": 50.0,
+      "forecast_days": 7,
+      "forecast_source": "synthetic fallback"
+    },
+    {
+      "field_id": "field_6",
+      "field_name": "Field 6",
+      "crop": "Cotton",
+      "crop_stage": "Configured",
+      "kc": 1.1,
+      "soil_type": "Loam (Standard Agricultural Soil)",
+      "field_capacity_mm": 150.0,
+      "wilting_point_mm": 50.0,
+      "forecast_days": 7,
+      "forecast_source": "synthetic fallback"
+    },
+    {
+      "field_id": "field_7",
+      "field_name": "Field 7",
+      "crop": "Cotton",
+      "crop_stage": "Configured",
+      "kc": 1.1,
+      "soil_type": "Loam (Standard Agricultural Soil)",
+      "field_capacity_mm": 150.0,
+      "wilting_point_mm": 50.0,
+      "forecast_days": 7,
+      "forecast_source": "synthetic fallback"
+    }
+  ]
+}

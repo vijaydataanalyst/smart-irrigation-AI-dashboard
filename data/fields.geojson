@@ -1,0 +1,145 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "field_1",
+        "name": "Field 1 (North Block - Tomato)",
+        "crop_type": "Tomato",
+        "soil_type": "Loam",
+        "field_capacity_mm": 100.0,
+        "wilting_point_mm": 50.0,
+        "initial_moisture_mm": 95.0,
+        "kc": 1.15
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1025,
+          28.7041
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "field_2",
+        "name": "Field 2 (South Block - Maize)",
+        "crop_type": "Maize",
+        "soil_type": "Sandy Loam",
+        "field_capacity_mm": 120.0,
+        "wilting_point_mm": 40.0,
+        "initial_moisture_mm": 58.0,
+        "kc": 1.0
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8777,
+          19.076
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "field_3",
+        "name": "Field 3 (East Block - Wheat)",
+        "crop_type": "Wheat",
+        "soil_type": "Clay Loam",
+        "field_capacity_mm": 180.0,
+        "wilting_point_mm": 65.0,
+        "initial_moisture_mm": 135.0,
+        "kc": 0.85
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1025,
+          19.7041
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "field_4",
+        "name": "Field 4 (New Zone)",
+        "crop_type": "Maize",
+        "soil_type": "Loam (Standard Agricultural Soil)",
+        "field_capacity_mm": 150.0,
+        "wilting_point_mm": 50.0,
+        "initial_moisture_mm": 75.17,
+        "kc": 1.0
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9558,
+          11.0168
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "field_5",
+        "name": "Field 5",
+        "crop_type": "Cotton",
+        "soil_type": "Loam (Standard Agricultural Soil)",
+        "field_capacity_mm": 150.0,
+        "wilting_point_mm": 50.0,
+        "initial_moisture_mm": 75.0,
+        "kc": 1.15
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.87207031250001,
+          29.573457073017593
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "field_6",
+        "name": "Field 6",
+        "crop_type": "Cotton",
+        "soil_type": "Loam (Standard Agricultural Soil)",
+        "field_capacity_mm": 150.0,
+        "wilting_point_mm": 50.0,
+        "initial_moisture_mm": 75.0,
+        "kc": 1.1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.91601562500001,
+          30.183121842195515
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "field_7",
+        "name": "Field 7",
+        "crop_type": "Cotton",
+        "soil_type": "Loam (Standard Agricultural Soil)",
+        "field_capacity_mm": 150.0,
+        "wilting_point_mm": 50.0,
+        "initial_moisture_mm": 75.0,
+        "kc": 1.1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.42968750000001,
+          27.52775820686191
+        ]
+      }
+    }
+  ]
+}

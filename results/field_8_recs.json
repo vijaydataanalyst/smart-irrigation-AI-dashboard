@@ -1,0 +1,29 @@
+[
+  {
+    "field_id": "field_8",
+    "field_name": "Field 8",
+    "crop": "Tomato",
+    "date": "2026-09-16",
+    "depth_mm": 30.0,
+    "soil_moisture_mm": 56.9,
+    "reason": "AWF (0.38) < 0.5 and rain in 48h (4.2mm) < 5.0mm; planned irrigation credit 0.0mm"
+  },
+  {
+    "field_id": "field_8",
+    "field_name": "Field 8",
+    "crop": "Tomato",
+    "date": "2026-09-17",
+    "depth_mm": 30.0,
+    "soil_moisture_mm": 68.6,
+    "reason": "AWF (0.46) < 0.5 and rain in 48h (2.9mm) < 5.0mm; planned irrigation credit 18.6mm"
+  },
+  {
+    "field_id": "field_8",
+    "field_name": "Field 8",
+    "crop": "Tomato",
+    "date": "2026-09-22",
+    "depth_mm": 30.0,
+    "soil_moisture_mm": 71.5,
+    "reason": "AWF (0.48) < 0.5 and rain in 48h (3.8mm) < 5.0mm; planned irrigation credit 21.5mm"
+  }
+]
