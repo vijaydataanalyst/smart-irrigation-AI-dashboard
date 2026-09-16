@@ -32,8 +32,11 @@ st.markdown("""
         color: #eff9eb;
         font-family: 'Space Grotesk', sans-serif;
     }
-    .block-container { padding: 1.5rem 2rem 4rem; max-width: 1500px; }
-    .site-title { margin: 0 0 1rem; color: #eff9eb; font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1; font-weight: 700; letter-spacing: -.03em; }
+    [data-testid="stAppViewContainer"] { background: transparent !important; position: relative; z-index: 1; }
+    [data-testid="stCustomComponentV1"] { position: fixed !important; inset: 0 !important; z-index: 0 !important; width: 100vw !important; height: 100vh !important; pointer-events: auto; }
+    [data-testid="stCustomComponentV1"] iframe { width: 100vw !important; height: 100vh !important; border: 0 !important; }
+    .block-container { position: relative; z-index: 2; padding: 1.5rem 2rem 4rem; max-width: 1500px; background: transparent; }
+    .site-title { display: inline-block; margin: 0 0 1rem; padding: .55rem .85rem; border: 1px solid rgba(166,242,143,.22); border-radius: 12px; background: rgba(5,8,7,.7); color: #eff9eb; font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1; font-weight: 700; letter-spacing: -.03em; }
     .hero {
         position: relative;
         overflow: hidden;

@@ -153,7 +153,7 @@ window.addEventListener("resize", resize);
 resize();
 animate();
 Streamlit.setComponentReady();
-Streamlit.setFrameHeight(760);
+Streamlit.setFrameHeight(window.innerHeight || 900);
 Streamlit.events.addEventListener(Streamlit.RENDER_EVENT, (event) => {
   const args = event.detail.args || {};
   if (typeof args.latitude === "number" && typeof args.longitude === "number") {
