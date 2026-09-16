@@ -27,6 +27,8 @@ renderer.setClearColor(0x081611, 1);
 
 const globe = new THREE.Group();
 scene.add(globe);
+const fieldPins = new THREE.Group();
+globe.add(fieldPins);
 const textureLoader = new THREE.TextureLoader();
 const earthTexture = textureLoader.load("https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg");
 const earth = new THREE.Mesh(
@@ -80,6 +82,28 @@ function placePin(latitude, longitude) {
   globe.add(selectedPin);
 }
 
+function coordinatesToVector(latitude, longitude, radius = 1.33) {
+  const phi = (90 - latitude) * Math.PI / 180;
+  const theta = (longitude + 180) * Math.PI / 180;
+  return new THREE.Vector3(
+    -radius * Math.sin(phi) * Math.cos(theta),
+    radius * Math.cos(phi),
+    radius * Math.sin(phi) * Math.sin(theta),
+  );
+}
+
+function renderFieldPins(points = []) {
+  fieldPins.clear();
+  points.forEach((point) => {
+    const pin = new THREE.Mesh(
+      new THREE.SphereGeometry(0.025, 12, 12),
+      new THREE.MeshBasicMaterial({ color: 0x8ee38c }),
+    );
+    pin.position.copy(coordinatesToVector(point.latitude, point.longitude));
+    fieldPins.add(pin);
+  });
+}
+
 function emitLocation(latitude, longitude) {
   const lat = Number(latitude.toFixed(5));
   const lon = Number(longitude.toFixed(5));
@@ -119,18 +143,18 @@ canvas.addEventListener("wheel", (event) => {
 
 function animate() {
   requestAnimationFrame(animate);
-  if (!dragging) globe.rotation.y += 0.0007;
   renderer.render(scene, camera);
 }
 window.addEventListener("resize", resize);
 resize();
 animate();
 Streamlit.setComponentReady();
-Streamlit.setFrameHeight(640);
+Streamlit.setFrameHeight(760);
 Streamlit.events.addEventListener(Streamlit.RENDER_EVENT, (event) => {
   const args = event.detail.args || {};
   if (typeof args.latitude === "number" && typeof args.longitude === "number") {
     placePin(args.latitude, args.longitude);
+    renderFieldPins(args.field_points || []);
     const label = args.location_name ? `${args.location_name} / ` : "";
     readout.textContent = `${label}${args.latitude.toFixed(5)}° LAT  ${args.longitude.toFixed(5)}° LON`;
   }

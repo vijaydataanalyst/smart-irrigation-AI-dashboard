@@ -27,10 +27,8 @@ st.markdown("""
         --night-soft: #172821;
     }
     .stApp {
-        background:
-            radial-gradient(circle at 92% 7%, rgba(142, 227, 140, .13), transparent 24rem),
-            radial-gradient(circle at 4% 58%, rgba(245, 187, 99, .08), transparent 28rem),
-            #f5f7f0;
+        background: #050807;
+        color: #eff9eb;
     }
     .block-container { padding-top: 2rem; max-width: 1500px; }
     .hero {
@@ -64,6 +62,8 @@ st.markdown("""
         border-radius: 14px;
         box-shadow: 0 8px 20px rgba(37, 72, 48, .06);
     }
+    [data-testid="stAppViewContainer"], [data-testid="stHeader"] { background: #050807; }
+    [data-testid="stMarkdownContainer"], .stCaption, label { color: #d5e6d2 !important; }
     [data-testid="stMetricValue"] { color: var(--ink); }
     .stButton > button { border-radius: 999px; font-weight: 750; transition: transform .2s ease, box-shadow .2s ease; }
     .stButton > button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(16, 32, 24, .15); }
@@ -227,10 +227,20 @@ map_center = pending_coords or coords
 st.subheader("📍 Choose field location")
 st.caption("Orbit and zoom the Earth. Click any point on the globe to set the field coordinates.")
 location_name = st.session_state.get("pending_location_name", field_labels.get(map_field_id, "Selected map location"))
+field_points = [
+    {
+        "id": field_id,
+        "name": feature["properties"].get("name", field_id),
+        "latitude": float(feature["geometry"]["coordinates"][1]),
+        "longitude": float(feature["geometry"]["coordinates"][0]),
+    }
+    for field_id, feature in fields_dict.items()
+]
 globe_value = GLOBE_COMPONENT(
     latitude=float(map_center[1]),
     longitude=float(map_center[0]),
     location_name=location_name,
+    field_points=field_points,
     key="threejs_location_globe",
     default=None,
 )
