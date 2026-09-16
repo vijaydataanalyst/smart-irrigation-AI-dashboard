@@ -33,6 +33,7 @@ st.markdown("""
         font-family: 'Space Grotesk', sans-serif;
     }
     .block-container { padding: 1.5rem 2rem 4rem; max-width: 1500px; }
+    .site-title { margin: 0 0 1rem; color: #eff9eb; font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1; font-weight: 700; letter-spacing: -.03em; }
     .hero {
         position: relative;
         overflow: hidden;
@@ -106,15 +107,6 @@ GLOBE_COMPONENT = components.declare_component(
     "smart_irrigation_globe",
     path=os.path.join(BASE_DIR, "globe_component", "dist"),
 )
-
-# App Header
-st.markdown("""
-<div class="hero">
-    <div class="eyebrow">PS12 / FIELD INTELLIGENCE SYSTEM</div>
-    <h1>Smart Irrigation Control Room</h1>
-    <p>Field-level soil moisture intelligence powered by weather forecasts and FAO-56 crop agronomy.</p>
-</div>
-""", unsafe_allow_html=True)
 
 # Function to run the full backend pipeline
 def execute_pipeline():
@@ -203,16 +195,6 @@ def persist_new_field(field_id, field_name, crop_name, properties, coordinates):
         json.dump(fields_data, f, indent=2)
     return field_id
 
-st.markdown(
-    f'<div class="command-ribbon">'
-    f'<span class="command-chip"><b>LIVE</b> field telemetry</span>'
-    f'<span class="command-chip"><b>{len(fields_dict):02d}</b> configured fields</span>'
-    f'<span class="command-chip"><b>7D</b> forecast horizon</span>'
-    f'<span class="command-chip"><b>FAO-56</b> crop model</span>'
-    f'</div>',
-    unsafe_allow_html=True,
-)
-
 # Main field workspace: choose an existing field and optionally move it on the map.
 field_ids = list(fields_dict.keys())
 field_labels = {
@@ -242,7 +224,7 @@ pending_coords = st.session_state.get("pending_coords")
 pending_location_name = st.session_state.get("pending_location_name")
 map_center = pending_coords or coords
 
-st.subheader("📍 Choose field location")
+st.markdown('<div class="site-title">Smart Irrigation AI Dashboard</div>', unsafe_allow_html=True)
 st.caption("Orbit and zoom the Earth. Click any point on the globe to set the field coordinates.")
 location_name = st.session_state.get("pending_location_name", field_labels.get(map_field_id, "Selected map location"))
 field_points = [
